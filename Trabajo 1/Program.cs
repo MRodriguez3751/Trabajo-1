@@ -11,7 +11,7 @@ namespace Trabajo_1
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
-        /// Hola
+        /// Hola haz la clase
         [STAThread]
         static void Main()
         {
