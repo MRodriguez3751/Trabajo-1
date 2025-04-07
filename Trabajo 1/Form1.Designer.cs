@@ -58,13 +58,43 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgv_lista = new System.Windows.Forms.DataGridView();
+            this.txtbx_buscar = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btn_buscar = new System.Windows.Forms.Button();
+            this.btn_eliminar = new System.Windows.Forms.Button();
+            this.btn_modificar = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtbx_buscar_telefono = new System.Windows.Forms.TextBox();
+            this.txtbx_buscar_correo = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtbx_buscar_contacto = new System.Windows.Forms.TextBox();
+            this.txtbx_buscar_nombre = new System.Windows.Forms.TextBox();
+            this.txtbx_buscar_id = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtbx_buscar_total = new System.Windows.Forms.TextBox();
+            this.txtbx_buscar_presupuesto = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtbx_buscar_precio = new System.Windows.Forms.TextBox();
+            this.txtbx_buscar_peso = new System.Windows.Forms.TextBox();
+            this.txtbx_buscar_producto = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_lista)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -236,15 +266,18 @@
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(117, 17);
             this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Telefono Contacto:";
+            this.checkBox1.Text = "Teléfono Contacto:";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // txtbx_telefono
             // 
+            this.txtbx_telefono.Enabled = false;
             this.txtbx_telefono.Location = new System.Drawing.Point(152, 136);
             this.txtbx_telefono.Name = "txtbx_telefono";
             this.txtbx_telefono.Size = new System.Drawing.Size(100, 20);
             this.txtbx_telefono.TabIndex = 9;
+            this.txtbx_telefono.Text = "No Aplica";
             // 
             // txtbx_correo
             // 
@@ -282,6 +315,7 @@
             this.txtbx_id_pro.Name = "txtbx_id_pro";
             this.txtbx_id_pro.Size = new System.Drawing.Size(100, 20);
             this.txtbx_id_pro.TabIndex = 3;
+            this.txtbx_id_pro.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_id_pro_KeyPress);
             // 
             // lbl_nombre_contacto
             // 
@@ -323,6 +357,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.groupBox6);
+            this.groupBox4.Controls.Add(this.groupBox5);
+            this.groupBox4.Controls.Add(this.btn_modificar);
+            this.groupBox4.Controls.Add(this.btn_eliminar);
+            this.groupBox4.Controls.Add(this.btn_buscar);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.txtbx_buscar);
             this.groupBox4.Location = new System.Drawing.Point(7, 7);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(560, 260);
@@ -342,11 +383,257 @@
             // 
             // dgv_lista
             // 
+            this.dgv_lista.AllowUserToAddRows = false;
+            this.dgv_lista.AllowUserToDeleteRows = false;
             this.dgv_lista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_lista.Location = new System.Drawing.Point(11, 34);
             this.dgv_lista.Name = "dgv_lista";
+            this.dgv_lista.ReadOnly = true;
             this.dgv_lista.Size = new System.Drawing.Size(560, 249);
             this.dgv_lista.TabIndex = 2;
+            // 
+            // txtbx_buscar
+            // 
+            this.txtbx_buscar.Location = new System.Drawing.Point(102, 39);
+            this.txtbx_buscar.Name = "txtbx_buscar";
+            this.txtbx_buscar.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar.TabIndex = 0;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(19, 42);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Ingrese ID:";
+            // 
+            // btn_buscar
+            // 
+            this.btn_buscar.Location = new System.Drawing.Point(229, 37);
+            this.btn_buscar.Name = "btn_buscar";
+            this.btn_buscar.Size = new System.Drawing.Size(75, 23);
+            this.btn_buscar.TabIndex = 2;
+            this.btn_buscar.Text = "Buscar";
+            this.btn_buscar.UseVisualStyleBackColor = true;
+            // 
+            // btn_eliminar
+            // 
+            this.btn_eliminar.Location = new System.Drawing.Point(455, 37);
+            this.btn_eliminar.Name = "btn_eliminar";
+            this.btn_eliminar.Size = new System.Drawing.Size(75, 23);
+            this.btn_eliminar.TabIndex = 3;
+            this.btn_eliminar.Text = "Eliminar";
+            this.btn_eliminar.UseVisualStyleBackColor = true;
+            // 
+            // btn_modificar
+            // 
+            this.btn_modificar.Location = new System.Drawing.Point(357, 37);
+            this.btn_modificar.Name = "btn_modificar";
+            this.btn_modificar.Size = new System.Drawing.Size(75, 23);
+            this.btn_modificar.TabIndex = 4;
+            this.btn_modificar.Text = "Modificar";
+            this.btn_modificar.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label16);
+            this.groupBox5.Controls.Add(this.txtbx_buscar_telefono);
+            this.groupBox5.Controls.Add(this.txtbx_buscar_correo);
+            this.groupBox5.Controls.Add(this.label7);
+            this.groupBox5.Controls.Add(this.txtbx_buscar_contacto);
+            this.groupBox5.Controls.Add(this.txtbx_buscar_nombre);
+            this.groupBox5.Controls.Add(this.txtbx_buscar_id);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.label10);
+            this.groupBox5.Location = new System.Drawing.Point(6, 75);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(277, 185);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Datos del Proveedor";
+            // 
+            // txtbx_buscar_telefono
+            // 
+            this.txtbx_buscar_telefono.Enabled = false;
+            this.txtbx_buscar_telefono.Location = new System.Drawing.Point(152, 136);
+            this.txtbx_buscar_telefono.Name = "txtbx_buscar_telefono";
+            this.txtbx_buscar_telefono.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_telefono.TabIndex = 9;
+            // 
+            // txtbx_buscar_correo
+            // 
+            this.txtbx_buscar_correo.Location = new System.Drawing.Point(152, 110);
+            this.txtbx_buscar_correo.Name = "txtbx_buscar_correo";
+            this.txtbx_buscar_correo.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_correo.TabIndex = 7;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(23, 113);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(87, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Correo Contacto:";
+            // 
+            // txtbx_buscar_contacto
+            // 
+            this.txtbx_buscar_contacto.Location = new System.Drawing.Point(152, 84);
+            this.txtbx_buscar_contacto.Name = "txtbx_buscar_contacto";
+            this.txtbx_buscar_contacto.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_contacto.TabIndex = 5;
+            // 
+            // txtbx_buscar_nombre
+            // 
+            this.txtbx_buscar_nombre.Location = new System.Drawing.Point(152, 58);
+            this.txtbx_buscar_nombre.Name = "txtbx_buscar_nombre";
+            this.txtbx_buscar_nombre.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_nombre.TabIndex = 4;
+            // 
+            // txtbx_buscar_id
+            // 
+            this.txtbx_buscar_id.Location = new System.Drawing.Point(152, 33);
+            this.txtbx_buscar_id.Name = "txtbx_buscar_id";
+            this.txtbx_buscar_id.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_id.TabIndex = 3;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(23, 87);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(93, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Nombre Contacto:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(23, 61);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(91, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Nombre Empresa:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(23, 36);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(95, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Código Proveedor:";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label11);
+            this.groupBox6.Controls.Add(this.txtbx_buscar_total);
+            this.groupBox6.Controls.Add(this.txtbx_buscar_presupuesto);
+            this.groupBox6.Controls.Add(this.label12);
+            this.groupBox6.Controls.Add(this.txtbx_buscar_precio);
+            this.groupBox6.Controls.Add(this.txtbx_buscar_peso);
+            this.groupBox6.Controls.Add(this.txtbx_buscar_producto);
+            this.groupBox6.Controls.Add(this.label13);
+            this.groupBox6.Controls.Add(this.label14);
+            this.groupBox6.Controls.Add(this.label15);
+            this.groupBox6.Location = new System.Drawing.Point(283, 75);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(277, 185);
+            this.groupBox6.TabIndex = 12;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Datos del Producto";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(23, 139);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(93, 26);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "Precio Total Por\r\nProducto Mensual";
+            // 
+            // txtbx_buscar_total
+            // 
+            this.txtbx_buscar_total.Location = new System.Drawing.Point(152, 142);
+            this.txtbx_buscar_total.Name = "txtbx_buscar_total";
+            this.txtbx_buscar_total.ReadOnly = true;
+            this.txtbx_buscar_total.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_total.TabIndex = 9;
+            // 
+            // txtbx_buscar_presupuesto
+            // 
+            this.txtbx_buscar_presupuesto.Location = new System.Drawing.Point(152, 110);
+            this.txtbx_buscar_presupuesto.Name = "txtbx_buscar_presupuesto";
+            this.txtbx_buscar_presupuesto.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_presupuesto.TabIndex = 7;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(23, 113);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(114, 13);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "Presupuesto mensual: ";
+            // 
+            // txtbx_buscar_precio
+            // 
+            this.txtbx_buscar_precio.Location = new System.Drawing.Point(152, 84);
+            this.txtbx_buscar_precio.Name = "txtbx_buscar_precio";
+            this.txtbx_buscar_precio.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_precio.TabIndex = 5;
+            // 
+            // txtbx_buscar_peso
+            // 
+            this.txtbx_buscar_peso.Location = new System.Drawing.Point(152, 58);
+            this.txtbx_buscar_peso.Name = "txtbx_buscar_peso";
+            this.txtbx_buscar_peso.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_peso.TabIndex = 4;
+            // 
+            // txtbx_buscar_producto
+            // 
+            this.txtbx_buscar_producto.Location = new System.Drawing.Point(152, 33);
+            this.txtbx_buscar_producto.Name = "txtbx_buscar_producto";
+            this.txtbx_buscar_producto.Size = new System.Drawing.Size(100, 20);
+            this.txtbx_buscar_producto.TabIndex = 3;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(23, 87);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(67, 13);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Precio (1 kg)";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(23, 61);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(52, 13);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "Peso (kg)";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(23, 36);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(47, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Nombre:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(23, 139);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(98, 13);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "Teléfono Contacto:";
             // 
             // Form1
             // 
@@ -364,8 +651,14 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_lista)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -402,6 +695,33 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView dgv_lista;
+        private System.Windows.Forms.Button btn_modificar;
+        private System.Windows.Forms.Button btn_eliminar;
+        private System.Windows.Forms.Button btn_buscar;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtbx_buscar;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtbx_buscar_total;
+        private System.Windows.Forms.TextBox txtbx_buscar_presupuesto;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtbx_buscar_precio;
+        private System.Windows.Forms.TextBox txtbx_buscar_peso;
+        private System.Windows.Forms.TextBox txtbx_buscar_producto;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtbx_buscar_telefono;
+        private System.Windows.Forms.TextBox txtbx_buscar_correo;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtbx_buscar_contacto;
+        private System.Windows.Forms.TextBox txtbx_buscar_nombre;
+        private System.Windows.Forms.TextBox txtbx_buscar_id;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
 

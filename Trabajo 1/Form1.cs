@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,7 +28,6 @@ namespace Trabajo_1
                 string.IsNullOrWhiteSpace(txtbx_nombre_empresa.Text) ||
                 string.IsNullOrWhiteSpace(txtbx_nombre_contacto.Text) ||
                 string.IsNullOrWhiteSpace(txtbx_correo.Text) ||
-                string.IsNullOrWhiteSpace(txtbx_telefono.Text) ||
                 string.IsNullOrWhiteSpace(txtbx_producto.Text) ||
                 string.IsNullOrWhiteSpace(txtbx_peso.Text) ||
                 string.IsNullOrWhiteSpace(txtbx_precio.Text) ||
@@ -35,9 +35,13 @@ namespace Trabajo_1
             {
                 MessageBox.Show("Complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            else if (txtbx_id_pro.Text.Length < 4)
+            {
+                MessageBox.Show("El ID del proveedor debe contener al menos 4 digitos", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             else
             {
-                Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, int.Parse(txtbx_telefono.Text),
+                Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, txtbx_telefono.Text,
                                                            txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
                 proveedores.Add(nuevoProveedor);
 
@@ -56,6 +60,31 @@ namespace Trabajo_1
                 txtbx_prec_total_men.Clear();
             }
         }
+        private void txtbx_id_pro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if (txtbx_id_pro.Text.Length >= 4 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                txtbx_telefono.Clear();
+                txtbx_telefono.Enabled = true;
+            }
+            else
+            {
+                txtbx_telefono.Text = "No Aplica";
+                txtbx_telefono.Enabled = false;
+            }
+        }
 
         public class Proveedor
         {
@@ -63,26 +92,34 @@ namespace Trabajo_1
             private string nombreEmpresa;
             private string nombreContacto;
             private string correo;
-            private int telefono;
+            private string telefono;
             private string producto;
             private int peso;
             private int precio;
             private int presupuesto;
 
-            public Proveedor(int id, string nombreEmpresa, string nombreContacto, string correo, int telefono, string producto, int peso, int precio, int presupuesto)
+            public Proveedor(int id, string nombreEmpresa, string nombreContacto, string correo, string telefono, string producto, int peso, int precio, int presupuesto)
             {
-                this.id = id;
-                this.nombreEmpresa = nombreEmpresa;
-                this.nombreContacto = nombreContacto;
-                this.correo = correo;
-                this.telefono = telefono;
-                this.producto = producto;
-                this.peso = peso;
-                this.precio = precio;
-                this.presupuesto = presupuesto;
-
+                    Id = id;
+                    NombreEmpresa = nombreEmpresa;
+                    NombreContacto = nombreContacto;
+                    Correo = correo;
+                    Telefono = telefono;
+                    Producto = producto;
+                    Peso = peso;
+                    Precio = precio;
+                    Presupuesto = presupuesto;
             }
 
+            public int Id { get => id; set => id = value; }
+            public string NombreEmpresa { get => nombreEmpresa; set => nombreEmpresa = value; }
+            public string NombreContacto { get => nombreContacto; set => nombreContacto = value; }
+            public string Correo { get => correo; set => correo = value; }
+            public string Telefono { get => telefono; set => telefono = value; }
+            public string Producto { get => producto; set => producto = value; }
+            public int Peso { get => peso; set => peso = value; }
+            public int Precio { get => precio; set => precio = value; }
+            public int Presupuesto { get => presupuesto; set => presupuesto = value; }
         }
     }
 }
