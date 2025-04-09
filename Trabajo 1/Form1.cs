@@ -60,6 +60,29 @@ namespace Trabajo_1
                 txtbx_prec_total_men.Clear();
             }
         }
+
+        private void btn_buscar_Click(object sender, EventArgs e)
+        {
+            bool proveedorExistente = proveedores.Any(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
+            if (proveedorExistente)
+            {
+                Proveedor pe = proveedores.FirstOrDefault(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
+                txtbx_buscar_id.Text = pe.Id.ToString();
+                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
+                txtbx_buscar_contacto.Text = pe.NombreContacto;
+                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
+                txtbx_buscar_correo.Text = pe.Correo;
+                txtbx_buscar_telefono.Text = pe.Telefono;
+                txtbx_buscar_producto.Text = pe.Producto;
+                txtbx_buscar_peso.Text = pe.Peso.ToString();
+                txtbx_buscar_precio.Text = pe.Precio.ToString();
+                txtbx_buscar_presupuesto.Text = pe.Presupuesto.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
+            }
+        }
         private void txtbx_id_pro_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -100,15 +123,15 @@ namespace Trabajo_1
 
             public Proveedor(int id, string nombreEmpresa, string nombreContacto, string correo, string telefono, string producto, int peso, int precio, int presupuesto)
             {
-                    Id = id;
-                    NombreEmpresa = nombreEmpresa;
-                    NombreContacto = nombreContacto;
-                    Correo = correo;
-                    Telefono = telefono;
-                    Producto = producto;
-                    Peso = peso;
-                    Precio = precio;
-                    Presupuesto = presupuesto;
+                Id = id;
+                NombreEmpresa = nombreEmpresa;
+                NombreContacto = nombreContacto;
+                Correo = correo;
+                Telefono = telefono;
+                Producto = producto;
+                Peso = peso;
+                Precio = precio;
+                Presupuesto = presupuesto;
             }
             // qwqwerwrqwer
             public int Id { get => id; set => id = value; }
@@ -120,6 +143,11 @@ namespace Trabajo_1
             public int Peso { get => peso; set => peso = value; }
             public int Precio { get => precio; set => precio = value; }
             public int Presupuesto { get => presupuesto; set => presupuesto = value; }
+        }
+
+        private void btn_modificar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
