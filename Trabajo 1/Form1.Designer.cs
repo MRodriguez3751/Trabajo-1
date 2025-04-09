@@ -139,6 +139,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "Limpiar Formulario";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btn_limpiar_Click);
             // 
             // groupBox2
             // 
@@ -182,6 +183,7 @@
             this.txtbx_presupuesto.Name = "txtbx_presupuesto";
             this.txtbx_presupuesto.Size = new System.Drawing.Size(100, 20);
             this.txtbx_presupuesto.TabIndex = 7;
+            this.txtbx_presupuesto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // label1
             // 
@@ -198,6 +200,7 @@
             this.txtbx_precio.Name = "txtbx_precio";
             this.txtbx_precio.Size = new System.Drawing.Size(100, 20);
             this.txtbx_precio.TabIndex = 5;
+            this.txtbx_precio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // txtbx_peso
             // 
@@ -205,6 +208,7 @@
             this.txtbx_peso.Name = "txtbx_peso";
             this.txtbx_peso.Size = new System.Drawing.Size(100, 20);
             this.txtbx_peso.TabIndex = 4;
+            this.txtbx_peso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // txtbx_producto
             // 
@@ -212,6 +216,7 @@
             this.txtbx_producto.Name = "txtbx_producto";
             this.txtbx_producto.Size = new System.Drawing.Size(100, 20);
             this.txtbx_producto.TabIndex = 3;
+            this.txtbx_producto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_nombre_empresa_KeyPress);
             // 
             // label2
             // 
@@ -278,6 +283,7 @@
             this.txtbx_telefono.Size = new System.Drawing.Size(100, 20);
             this.txtbx_telefono.TabIndex = 9;
             this.txtbx_telefono.Text = "No Aplica";
+            this.txtbx_telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // txtbx_correo
             // 
@@ -301,6 +307,7 @@
             this.txtbx_nombre_contacto.Name = "txtbx_nombre_contacto";
             this.txtbx_nombre_contacto.Size = new System.Drawing.Size(100, 20);
             this.txtbx_nombre_contacto.TabIndex = 5;
+            this.txtbx_nombre_contacto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_nombre_empresa_KeyPress);
             // 
             // txtbx_nombre_empresa
             // 
@@ -308,6 +315,7 @@
             this.txtbx_nombre_empresa.Name = "txtbx_nombre_empresa";
             this.txtbx_nombre_empresa.Size = new System.Drawing.Size(100, 20);
             this.txtbx_nombre_empresa.TabIndex = 4;
+            this.txtbx_nombre_empresa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_nombre_empresa_KeyPress);
             // 
             // txtbx_id_pro
             // 

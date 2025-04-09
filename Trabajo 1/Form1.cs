@@ -41,27 +41,38 @@ namespace Trabajo_1
             }
             else
             {
-                Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, txtbx_telefono.Text,
-                                                           txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
-                proveedores.Add(nuevoProveedor);
+                //verifica si existe ID duplicado
+                bool idExistente = proveedores.Any(m => m.Id.ToString().Equals(txtbx_id_pro.Text, StringComparison.OrdinalIgnoreCase));
 
-                dgv_lista.DataSource = null;
-                dgv_lista.DataSource = proveedores;
 
-                txtbx_id_pro.Clear();
-                txtbx_nombre_empresa.Clear();
-                txtbx_nombre_contacto.Clear();
-                txtbx_correo.Clear();
-                txtbx_telefono.Clear();
-                txtbx_producto.Clear();
-                txtbx_peso.Clear();
-                txtbx_precio.Clear();
-                txtbx_presupuesto.Clear();
-                txtbx_prec_total_men.Clear();
+                if (idExistente)
+                {
+                    // si existe ID duplicado, se muestra mensaje
+                    MessageBox.Show("ID ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, txtbx_telefono.Text,
+                                                               txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
+                    proveedores.Add(nuevoProveedor);
+
+                    dgv_lista.DataSource = null;
+                    dgv_lista.DataSource = proveedores;
+
+                    txtbx_id_pro.Clear();
+                    txtbx_nombre_empresa.Clear();
+                    txtbx_nombre_contacto.Clear();
+                    txtbx_correo.Clear();
+                    txtbx_telefono.Clear();
+                    txtbx_producto.Clear();
+                    txtbx_peso.Clear();
+                    txtbx_precio.Clear();
+                    txtbx_presupuesto.Clear();
+                    txtbx_prec_total_men.Clear();
+                }
             }
         }
-
-        private void txtbx_id_pro_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtbx_id_pro_KeyPress(object sender, KeyPressEventArgs e) // solo numeros y 4 digitos
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -72,6 +83,8 @@ namespace Trabajo_1
                 e.Handled = true;
             }
         }
+
+
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
@@ -111,7 +124,7 @@ namespace Trabajo_1
                 Precio = precio;
                 Presupuesto = presupuesto;
             }
-            // qwqwerwrqwer
+
             public int Id { get => id; set => id = value; }
             public string NombreEmpresa { get => nombreEmpresa; set => nombreEmpresa = value; }
             public string NombreContacto { get => nombreContacto; set => nombreContacto = value; }
@@ -173,6 +186,37 @@ namespace Trabajo_1
         private void btn_modificar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtbx_nombre_empresa_KeyPress(object sender, KeyPressEventArgs e) // solo letras
+        {
+            if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void btn_limpiar_Click(object sender, EventArgs e)
+        {
+            txtbx_id_pro.Clear();
+            txtbx_nombre_empresa.Clear();
+            txtbx_nombre_contacto.Clear();
+            txtbx_correo.Clear();
+            txtbx_telefono.Text = "No Aplica";
+            txtbx_producto.Clear();
+            txtbx_peso.Clear();
+            txtbx_precio.Clear();
+            txtbx_presupuesto.Clear();
+            txtbx_prec_total_men.Clear();
+        }
+
+        private void txtbx_telefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
