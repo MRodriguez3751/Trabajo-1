@@ -125,6 +125,17 @@ namespace Trabajo_1
                 Presupuesto = presupuesto;
             }
 
+            /*public ProveedorSinTelefono(int id, string nombreEmpresa, string nombreContacto, string correo, string producto, int peso, int precio, int presupuesto)
+            {
+                Id = id;
+                NombreEmpresa = nombreEmpresa;
+                NombreContacto = nombreContacto;
+                Correo = correo;
+                Producto = producto;
+                Peso = peso;
+                Precio = precio;
+                Presupuesto = presupuesto;
+            }*/
             public int Id { get => id; set => id = value; }
             public string NombreEmpresa { get => nombreEmpresa; set => nombreEmpresa = value; }
             public string NombreContacto { get => nombreContacto; set => nombreContacto = value; }
