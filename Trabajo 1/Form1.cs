@@ -110,7 +110,7 @@ namespace Trabajo_1
                     Precio = precio;
                     Presupuesto = presupuesto;
             }
-
+            // qwqwerwrqwer
             public int Id { get => id; set => id = value; }
             public string NombreEmpresa { get => nombreEmpresa; set => nombreEmpresa = value; }
             public string NombreContacto { get => nombreContacto; set => nombreContacto = value; }
