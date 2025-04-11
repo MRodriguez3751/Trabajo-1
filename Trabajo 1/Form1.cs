@@ -61,58 +61,6 @@ namespace Trabajo_1
             }
         }
 
-        private void btn_buscar_Click(object sender, EventArgs e)
-        {
-            bool proveedorExistente = proveedores.Any(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
-            if (proveedorExistente)
-            {
-                txtbx_buscar_id.Enabled = true;
-                txtbx_buscar_nombre.Enabled = true;
-                txtbx_buscar_contacto.Enabled = true;
-                txtbx_buscar_nombre.Enabled = true;
-                txtbx_buscar_correo.Enabled = true;
-                txtbx_buscar_telefono.Enabled = true;
-                txtbx_buscar_producto.Enabled = true;
-                txtbx_buscar_peso.Enabled = true;
-                txtbx_buscar_precio.Enabled = true;
-
-                Proveedor pe = proveedores.FirstOrDefault(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
-                txtbx_buscar_id.Text = pe.Id.ToString();
-                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
-                txtbx_buscar_contacto.Text = pe.NombreContacto;
-                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
-                txtbx_buscar_correo.Text = pe.Correo;
-                txtbx_buscar_telefono.Text = pe.Telefono;
-                txtbx_buscar_producto.Text = pe.Producto;
-                txtbx_buscar_peso.Text = pe.Peso.ToString();
-                txtbx_buscar_precio.Text = pe.Precio.ToString();
-                txtbx_buscar_presupuesto.Text = pe.Presupuesto.ToString();
-
-                MessageBox.Show("Proveedor modificado con exito.");
-
-                txtbx_buscar_id.Enabled = false;
-                txtbx_buscar_nombre.Enabled = false;
-                txtbx_buscar_contacto.Enabled = false;
-                txtbx_buscar_nombre.Enabled = false;
-                txtbx_buscar_correo.Enabled = false;
-                txtbx_buscar_telefono.Enabled = false;
-                txtbx_buscar_producto.Enabled = false;
-                txtbx_buscar_peso.Enabled = false;
-                txtbx_buscar_precio.Enabled = false;
-
-
-            }
-            else
-            {
-                MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
-            }
-        }
-
-        private void btn_modificar_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void txtbx_id_pro_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -173,6 +121,58 @@ namespace Trabajo_1
             public int Peso { get => peso; set => peso = value; }
             public int Precio { get => precio; set => precio = value; }
             public int Presupuesto { get => presupuesto; set => presupuesto = value; }
+        }
+
+        private void btn_buscar_Click(object sender, EventArgs e)
+        {
+            bool proveedorExistente = proveedores.Any(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
+            if (proveedorExistente)
+            {
+                txtbx_buscar_id.Enabled = true;
+                txtbx_buscar_nombre.Enabled = true;
+                txtbx_buscar_contacto.Enabled = true;
+                txtbx_buscar_nombre.Enabled = true;
+                txtbx_buscar_correo.Enabled = true;
+                txtbx_buscar_telefono.Enabled = true;
+                txtbx_buscar_producto.Enabled = true;
+                txtbx_buscar_peso.Enabled = true;
+                txtbx_buscar_precio.Enabled = true;
+
+                Proveedor pe = proveedores.FirstOrDefault(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
+                txtbx_buscar_id.Text = pe.Id.ToString();
+                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
+                txtbx_buscar_contacto.Text = pe.NombreContacto;
+                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
+                txtbx_buscar_correo.Text = pe.Correo;
+                txtbx_buscar_telefono.Text = pe.Telefono;
+                txtbx_buscar_producto.Text = pe.Producto;
+                txtbx_buscar_peso.Text = pe.Peso.ToString();
+                txtbx_buscar_precio.Text = pe.Precio.ToString();
+                txtbx_buscar_presupuesto.Text = pe.Presupuesto.ToString();
+
+                MessageBox.Show("Proveedor modificado con exito.");
+
+                txtbx_buscar_id.Enabled = false;
+                txtbx_buscar_nombre.Enabled = false;
+                txtbx_buscar_contacto.Enabled = false;
+                txtbx_buscar_nombre.Enabled = false;
+                txtbx_buscar_correo.Enabled = false;
+                txtbx_buscar_telefono.Enabled = false;
+                txtbx_buscar_producto.Enabled = false;
+                txtbx_buscar_peso.Enabled = false;
+                txtbx_buscar_precio.Enabled = false;
+
+
+            }
+            else
+            {
+                MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
+            }
+        }
+
+        private void btn_modificar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
