@@ -39,6 +39,11 @@ namespace Trabajo_1
             {
                 MessageBox.Show("El ID del proveedor debe contener al menos 4 digitos", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            else if (txtbx_precio.Text.Length > 10 || txtbx_peso.Text.Length > 10 || txtbx_presupuesto.Text.Length > 10)
+            {
+                MessageBox.Show("Precio, Peso o Presupuesto Mensual no debe exceder el largo de 10 dígitos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
             else
             {
                 //verifica si existe ID duplicado
@@ -52,10 +57,24 @@ namespace Trabajo_1
                 }
                 else
                 {
-                    Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text,
+                    if (checkBox1.Checked && string.IsNullOrWhiteSpace(txtbx_telefono.Text))
+                    {
+                        MessageBox.Show("Complete el campo de telefono", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    else if (checkBox1.Checked && !string.IsNullOrWhiteSpace(txtbx_telefono.Text))
+                    {
+                        Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, txtbx_telefono.Text,
                                                                txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
-                    proveedores.Add(nuevoProveedor);
+                        proveedores.Add(nuevoProveedor);
+                    }
+                    else if (!checkBox1.Checked)
+                    {
+                        Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text,
+                                                                   txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
+                        proveedores.Add(nuevoProveedor);
 
+                    }
 
                     dgv_lista.DataSource = null;
                     dgv_lista.DataSource = proveedores;
@@ -70,6 +89,7 @@ namespace Trabajo_1
                     txtbx_precio.Clear();
                     txtbx_presupuesto.Clear();
                     txtbx_prec_total_men.Clear();
+                    checkBox1.Checked = false;
                 }
             }
         }
@@ -112,6 +132,7 @@ namespace Trabajo_1
             private int peso;
             private int precio;
             private int presupuesto;
+            private int totalMensual;
 
             public Proveedor(int id, string nombreEmpresa, string nombreContacto, string correo, string telefono, string producto, int peso, int precio, int presupuesto)
             {
@@ -135,6 +156,7 @@ namespace Trabajo_1
                 Producto = producto;
                 Peso = peso;
                 Precio = precio;
+                TotalMensual = calcularTotalMensual();
                 Presupuesto = presupuesto;
             }
 
@@ -146,7 +168,31 @@ namespace Trabajo_1
             public string Producto { get => producto; set => producto = value; }
             public int Peso { get => peso; set => peso = value; }
             public int Precio { get => precio; set => precio = value; }
-            public int Presupuesto { get => presupuesto; set => presupuesto = value; }
+            public int Presupuesto
+            {
+                get
+                {
+                    return presupuesto;
+                }
+                set
+                {
+                    double min = totalMensual + (totalMensual*0.1);
+                    if (value < min)
+                    {
+                        presupuesto = (int)Math.Round(min,0);
+                    }
+                    else
+                    {
+                        presupuesto = value;
+                    }
+                }
+            }
+            public int TotalMensual { get => totalMensual; set => totalMensual = value; }
+
+            public int calcularTotalMensual()
+            {
+                return totalMensual = Precio * Peso;
+            }
         }
 
         private void btn_buscar_Click(object sender, EventArgs e)
@@ -154,7 +200,6 @@ namespace Trabajo_1
             bool proveedorExistente = proveedores.Any(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
             if (proveedorExistente)
             {
-                txtbx_buscar_id.Enabled = true;
                 txtbx_buscar_nombre.Enabled = true;
                 txtbx_buscar_contacto.Enabled = true;
                 txtbx_buscar_nombre.Enabled = true;
@@ -225,6 +270,14 @@ namespace Trabajo_1
             {
                 e.Handled = true;
             }
+        }
+
+        private void calcular_total_mensual(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtbx_peso.Text) && !string.IsNullOrWhiteSpace(txtbx_precio.Text))
+                {
+                    txtbx_prec_total_men.Text = $"${int.Parse(txtbx_precio.Text) * int.Parse(txtbx_peso.Text)}";
+                }
         }
     }
 }

@@ -85,6 +85,7 @@
             this.txtbx_buscar = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgv_lista = new System.Windows.Forms.DataGridView();
+            this.btn_exportar = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -123,7 +124,7 @@
             // 
             // btn_guardar
             // 
-            this.btn_guardar.Location = new System.Drawing.Point(383, 209);
+            this.btn_guardar.Location = new System.Drawing.Point(316, 209);
             this.btn_guardar.Name = "btn_guardar";
             this.btn_guardar.Size = new System.Drawing.Size(75, 41);
             this.btn_guardar.TabIndex = 13;
@@ -133,7 +134,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(102, 209);
+            this.button1.Location = new System.Drawing.Point(184, 209);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 41);
             this.button1.TabIndex = 12;
@@ -201,6 +202,7 @@
             this.txtbx_precio.Size = new System.Drawing.Size(100, 20);
             this.txtbx_precio.TabIndex = 5;
             this.txtbx_precio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
+            this.txtbx_precio.Leave += new System.EventHandler(this.calcular_total_mensual);
             // 
             // txtbx_peso
             // 
@@ -209,6 +211,7 @@
             this.txtbx_peso.Size = new System.Drawing.Size(100, 20);
             this.txtbx_peso.TabIndex = 4;
             this.txtbx_peso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
+            this.txtbx_peso.Leave += new System.EventHandler(this.calcular_total_mensual);
             // 
             // txtbx_producto
             // 
@@ -420,6 +423,7 @@
             this.txtbx_buscar_presupuesto.Name = "txtbx_buscar_presupuesto";
             this.txtbx_buscar_presupuesto.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_presupuesto.TabIndex = 7;
+            this.txtbx_buscar_presupuesto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // label12
             // 
@@ -436,6 +440,7 @@
             this.txtbx_buscar_precio.Name = "txtbx_buscar_precio";
             this.txtbx_buscar_precio.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_precio.TabIndex = 5;
+            this.txtbx_buscar_precio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // txtbx_buscar_peso
             // 
@@ -443,6 +448,7 @@
             this.txtbx_buscar_peso.Name = "txtbx_buscar_peso";
             this.txtbx_buscar_peso.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_peso.TabIndex = 4;
+            this.txtbx_buscar_peso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // txtbx_buscar_producto
             // 
@@ -450,6 +456,7 @@
             this.txtbx_buscar_producto.Name = "txtbx_buscar_producto";
             this.txtbx_buscar_producto.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_producto.TabIndex = 3;
+            this.txtbx_buscar_producto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_nombre_empresa_KeyPress);
             // 
             // label13
             // 
@@ -513,6 +520,7 @@
             this.txtbx_buscar_telefono.Name = "txtbx_buscar_telefono";
             this.txtbx_buscar_telefono.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_telefono.TabIndex = 9;
+            this.txtbx_buscar_telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // txtbx_buscar_correo
             // 
@@ -520,6 +528,7 @@
             this.txtbx_buscar_correo.Name = "txtbx_buscar_correo";
             this.txtbx_buscar_correo.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_correo.TabIndex = 7;
+            this.txtbx_buscar_correo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_nombre_empresa_KeyPress);
             // 
             // label7
             // 
@@ -536,6 +545,7 @@
             this.txtbx_buscar_contacto.Name = "txtbx_buscar_contacto";
             this.txtbx_buscar_contacto.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_contacto.TabIndex = 5;
+            this.txtbx_buscar_contacto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_nombre_empresa_KeyPress);
             // 
             // txtbx_buscar_nombre
             // 
@@ -543,11 +553,13 @@
             this.txtbx_buscar_nombre.Name = "txtbx_buscar_nombre";
             this.txtbx_buscar_nombre.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_nombre.TabIndex = 4;
+            this.txtbx_buscar_nombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_nombre_empresa_KeyPress);
             // 
             // txtbx_buscar_id
             // 
             this.txtbx_buscar_id.Location = new System.Drawing.Point(152, 33);
             this.txtbx_buscar_id.Name = "txtbx_buscar_id";
+            this.txtbx_buscar_id.ReadOnly = true;
             this.txtbx_buscar_id.Size = new System.Drawing.Size(100, 20);
             this.txtbx_buscar_id.TabIndex = 3;
             // 
@@ -625,6 +637,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btn_exportar);
             this.groupBox3.Controls.Add(this.dgv_lista);
             this.groupBox3.Location = new System.Drawing.Point(12, 317);
             this.groupBox3.Name = "groupBox3";
@@ -638,11 +651,20 @@
             this.dgv_lista.AllowUserToAddRows = false;
             this.dgv_lista.AllowUserToDeleteRows = false;
             this.dgv_lista.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_lista.Location = new System.Drawing.Point(11, 34);
+            this.dgv_lista.Location = new System.Drawing.Point(11, 19);
             this.dgv_lista.Name = "dgv_lista";
             this.dgv_lista.ReadOnly = true;
             this.dgv_lista.Size = new System.Drawing.Size(560, 249);
             this.dgv_lista.TabIndex = 2;
+            // 
+            // btn_exportar
+            // 
+            this.btn_exportar.Location = new System.Drawing.Point(224, 274);
+            this.btn_exportar.Name = "btn_exportar";
+            this.btn_exportar.Size = new System.Drawing.Size(131, 30);
+            this.btn_exportar.TabIndex = 14;
+            this.btn_exportar.Text = "Exportar Listado";
+            this.btn_exportar.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -731,6 +753,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btn_exportar;
     }
 }
 
