@@ -52,9 +52,18 @@ namespace Trabajo_1
                 }
                 else
                 {
-                    Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, txtbx_telefono.Text,
-                                                               txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
-                    proveedores.Add(nuevoProveedor);
+                    if (checkBox1.Checked)
+                    {
+                        Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, txtbx_telefono.Text,
+                                                                   txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
+                        proveedores.Add(nuevoProveedor);
+                    }
+                    else
+                    {
+                        Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text,
+                                                                   txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
+                        proveedores.Add(nuevoProveedor);
+                    }
 
                     dgv_lista.DataSource = null;
                     dgv_lista.DataSource = proveedores;
@@ -95,7 +104,7 @@ namespace Trabajo_1
             }
             else
             {
-                txtbx_telefono.Text = "No Aplica";
+                txtbx_telefono.Clear();
                 txtbx_telefono.Enabled = false;
             }
         }
@@ -125,7 +134,7 @@ namespace Trabajo_1
                 Presupuesto = presupuesto;
             }
 
-            /*public ProveedorSinTelefono(int id, string nombreEmpresa, string nombreContacto, string correo, string producto, int peso, int precio, int presupuesto)
+            public Proveedor(int id, string nombreEmpresa, string nombreContacto, string correo, string producto, int peso, int precio, int presupuesto)
             {
                 Id = id;
                 NombreEmpresa = nombreEmpresa;
@@ -135,7 +144,8 @@ namespace Trabajo_1
                 Peso = peso;
                 Precio = precio;
                 Presupuesto = presupuesto;
-            }*/
+            }
+
             public int Id { get => id; set => id = value; }
             public string NombreEmpresa { get => nombreEmpresa; set => nombreEmpresa = value; }
             public string NombreContacto { get => nombreContacto; set => nombreContacto = value; }
@@ -214,7 +224,7 @@ namespace Trabajo_1
             txtbx_nombre_empresa.Clear();
             txtbx_nombre_contacto.Clear();
             txtbx_correo.Clear();
-            txtbx_telefono.Text = "No Aplica";
+            txtbx_telefono.Clear();
             txtbx_producto.Clear();
             txtbx_peso.Clear();
             txtbx_precio.Clear();
