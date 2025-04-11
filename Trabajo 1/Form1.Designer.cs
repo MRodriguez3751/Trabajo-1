@@ -282,7 +282,6 @@
             this.txtbx_telefono.Name = "txtbx_telefono";
             this.txtbx_telefono.Size = new System.Drawing.Size(100, 20);
             this.txtbx_telefono.TabIndex = 9;
-            this.txtbx_telefono.Text = "No Aplica";
             this.txtbx_telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbx_telefono_KeyPress);
             // 
             // txtbx_correo
