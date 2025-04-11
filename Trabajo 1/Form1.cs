@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Trabajo_1
             dgv_lista.AutoGenerateColumns = true;
         }
 
+        // Botones
         private void btn_guardar_click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtbx_id_pro.Text) ||
@@ -57,18 +59,18 @@ namespace Trabajo_1
                 }
                 else
                 {
-                    if (checkBox1.Checked && string.IsNullOrWhiteSpace(txtbx_telefono.Text))
+                    if (chckbx_telefono.Checked && string.IsNullOrWhiteSpace(txtbx_telefono.Text))
                     {
                         MessageBox.Show("Complete el campo de telefono", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    else if (checkBox1.Checked && !string.IsNullOrWhiteSpace(txtbx_telefono.Text))
+                    else if (chckbx_telefono.Checked && !string.IsNullOrWhiteSpace(txtbx_telefono.Text))
                     {
                         Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, txtbx_telefono.Text,
                                                                txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
                         proveedores.Add(nuevoProveedor);
                     }
-                    else if (!checkBox1.Checked)
+                    else if (!chckbx_telefono.Checked)
                     {
                         Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text,
                                                                    txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
@@ -89,27 +91,95 @@ namespace Trabajo_1
                     txtbx_precio.Clear();
                     txtbx_presupuesto.Clear();
                     txtbx_prec_total_men.Clear();
-                    checkBox1.Checked = false;
+                    chckbx_telefono.Checked = false;
                 }
             }
         }
-        private void txtbx_id_pro_KeyPress(object sender, KeyPressEventArgs e) // solo numeros y 4 digitos
+        private void btn_buscar_Click(object sender, EventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            bool proveedorExistente = proveedores.Any(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
+            if (proveedorExistente)
             {
-                e.Handled = true;
+                txtbx_buscar_nombre.Enabled = true;
+                txtbx_buscar_contacto.Enabled = true;
+                txtbx_buscar_nombre.Enabled = true;
+                txtbx_buscar_correo.Enabled = true;
+                txtbx_buscar_telefono.Enabled = true;
+                txtbx_buscar_producto.Enabled = true;
+                txtbx_buscar_peso.Enabled = true;
+                txtbx_buscar_precio.Enabled = true;
+
+                Proveedor pe = proveedores.FirstOrDefault(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
+                txtbx_buscar_id.Text = pe.Id.ToString();
+                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
+                txtbx_buscar_contacto.Text = pe.NombreContacto;
+                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
+                txtbx_buscar_correo.Text = pe.Correo;
+                txtbx_buscar_telefono.Text = pe.Telefono;
+                txtbx_buscar_producto.Text = pe.Producto;
+                txtbx_buscar_peso.Text = pe.Peso.ToString();
+                txtbx_buscar_precio.Text = pe.Precio.ToString();
+                txtbx_buscar_presupuesto.Text = pe.Presupuesto.ToString();
             }
-            if (txtbx_id_pro.Text.Length >= 4 && !char.IsControl(e.KeyChar))
+            else
             {
-                e.Handled = true;
+                MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
+            }
+            txtbx_buscar.Clear();
+        }
+        private void btn_modificar_Click(object sender, EventArgs e)
+        {
+            txtbx_buscar_id.Enabled = false;
+            txtbx_buscar_nombre.Enabled = false;
+            txtbx_buscar_contacto.Enabled = false;
+            txtbx_buscar_nombre.Enabled = false;
+            txtbx_buscar_correo.Enabled = false;
+            txtbx_buscar_telefono.Enabled = false;
+            txtbx_buscar_producto.Enabled = false;
+            txtbx_buscar_peso.Enabled = false;
+            txtbx_buscar_precio.Enabled = false;
+        }
+        private void btn_limpiar_Click(object sender, EventArgs e)
+        {
+            txtbx_id_pro.Clear();
+            txtbx_nombre_empresa.Clear();
+            txtbx_nombre_contacto.Clear();
+            txtbx_correo.Clear();
+            txtbx_telefono.Clear();
+            txtbx_producto.Clear();
+            txtbx_peso.Clear();
+            txtbx_precio.Clear();
+            txtbx_presupuesto.Clear();
+            txtbx_prec_total_men.Clear();
+        }
+        private void btn_exportar_Click(object sender, EventArgs e)
+        {
+            if (proveedores.Count > 0)
+            {
+                string filepath = "Proveedores.csv";
+
+                using (StreamWriter sw = new StreamWriter(filepath))
+                {
+                    sw.WriteLine("Id;Empresa;Nombre Contacto;Correo;Teléfono;Producto;Peso;Precio;Presupuesto;Precio Total x Producto Mensual");
+
+                    foreach (Proveedor proveedor in proveedores)
+                    {
+                        sw.WriteLine($"{proveedor.Id};{proveedor.NombreEmpresa};{proveedor.NombreContacto};{proveedor.Correo};{proveedor.Telefono};{proveedor.Producto};{proveedor.Peso};{proveedor.Precio};{proveedor.Presupuesto};{proveedor.TotalMensual}");
+                    }
+                }
+                MessageBox.Show("El Archivo 'Proveedores.csv' ha sido creado con exito. ");
+            }
+            else
+            {
+                MessageBox.Show("No hay proveedores que exportar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        // Fin botones
 
-
-
+        // Validaciones y otros
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (chckbx_telefono.Checked)
             {
                 txtbx_telefono.Clear();
                 txtbx_telefono.Enabled = true;
@@ -120,7 +190,42 @@ namespace Trabajo_1
                 txtbx_telefono.Enabled = false;
             }
         }
+        private void txtbx_id_pro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if (txtbx_id_pro.Text.Length >= 4 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void txtbx_nombre_empresa_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+        private void txtbx_telefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void calcular_total_mensual(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtbx_peso.Text) && !string.IsNullOrWhiteSpace(txtbx_precio.Text))
+            {
+                txtbx_prec_total_men.Text = $"${int.Parse(txtbx_precio.Text) * int.Parse(txtbx_peso.Text)}";
+            }
+        }
+        // Fin validaciones y otros
 
+        // Clase
         public class Proveedor
         {
             private int id;
@@ -176,10 +281,10 @@ namespace Trabajo_1
                 }
                 set
                 {
-                    double min = totalMensual + (totalMensual*0.1);
+                    double min = totalMensual + (totalMensual * 0.1);
                     if (value < min)
                     {
-                        presupuesto = (int)Math.Round(min,0);
+                        presupuesto = (int)Math.Round(min, 0);
                     }
                     else
                     {
@@ -194,90 +299,6 @@ namespace Trabajo_1
                 return totalMensual = Precio * Peso;
             }
         }
-
-        private void btn_buscar_Click(object sender, EventArgs e)
-        {
-            bool proveedorExistente = proveedores.Any(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
-            if (proveedorExistente)
-            {
-                txtbx_buscar_nombre.Enabled = true;
-                txtbx_buscar_contacto.Enabled = true;
-                txtbx_buscar_nombre.Enabled = true;
-                txtbx_buscar_correo.Enabled = true;
-                txtbx_buscar_telefono.Enabled = true;
-                txtbx_buscar_producto.Enabled = true;
-                txtbx_buscar_peso.Enabled = true;
-                txtbx_buscar_precio.Enabled = true;
-
-                Proveedor pe = proveedores.FirstOrDefault(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
-                txtbx_buscar_id.Text = pe.Id.ToString();
-                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
-                txtbx_buscar_contacto.Text = pe.NombreContacto;
-                txtbx_buscar_nombre.Text = pe.NombreEmpresa;
-                txtbx_buscar_correo.Text = pe.Correo;
-                txtbx_buscar_telefono.Text = pe.Telefono;
-                txtbx_buscar_producto.Text = pe.Producto;
-                txtbx_buscar_peso.Text = pe.Peso.ToString();
-                txtbx_buscar_precio.Text = pe.Precio.ToString();
-                txtbx_buscar_presupuesto.Text = pe.Presupuesto.ToString();
-            }
-            else
-            {
-                MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
-            }
-            txtbx_buscar.Clear();
-        }
-
-        private void btn_modificar_Click(object sender, EventArgs e)
-        {
-            txtbx_buscar_id.Enabled = false;
-            txtbx_buscar_nombre.Enabled = false;
-            txtbx_buscar_contacto.Enabled = false;
-            txtbx_buscar_nombre.Enabled = false;
-            txtbx_buscar_correo.Enabled = false;
-            txtbx_buscar_telefono.Enabled = false;
-            txtbx_buscar_producto.Enabled = false;
-            txtbx_buscar_peso.Enabled = false;
-            txtbx_buscar_precio.Enabled = false;
-        }
-
-        private void txtbx_nombre_empresa_KeyPress(object sender, KeyPressEventArgs e) // solo letras
-        {
-            if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-            {
-                e.Handled = true;
-                return;
-            }
-        }
-
-        private void btn_limpiar_Click(object sender, EventArgs e)
-        {
-            txtbx_id_pro.Clear();
-            txtbx_nombre_empresa.Clear();
-            txtbx_nombre_contacto.Clear();
-            txtbx_correo.Clear();
-            txtbx_telefono.Clear();
-            txtbx_producto.Clear();
-            txtbx_peso.Clear();
-            txtbx_precio.Clear();
-            txtbx_presupuesto.Clear();
-            txtbx_prec_total_men.Clear();
-        }
-
-        private void txtbx_telefono_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void calcular_total_mensual(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(txtbx_peso.Text) && !string.IsNullOrWhiteSpace(txtbx_precio.Text))
-                {
-                    txtbx_prec_total_men.Text = $"${int.Parse(txtbx_precio.Text) * int.Parse(txtbx_peso.Text)}";
-                }
-        }
+        // Fin clase
     }
 }

@@ -44,7 +44,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chckbx_telefono = new System.Windows.Forms.CheckBox();
             this.txtbx_telefono = new System.Windows.Forms.TextBox();
             this.txtbx_correo = new System.Windows.Forms.TextBox();
             this.lbl_correo = new System.Windows.Forms.Label();
@@ -250,7 +250,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.chckbx_telefono);
             this.groupBox1.Controls.Add(this.txtbx_telefono);
             this.groupBox1.Controls.Add(this.txtbx_correo);
             this.groupBox1.Controls.Add(this.lbl_correo);
@@ -267,16 +267,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Proveedor";
             // 
-            // checkBox1
+            // chckbx_telefono
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 139);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(117, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Teléfono Contacto:";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.chckbx_telefono.AutoSize = true;
+            this.chckbx_telefono.Location = new System.Drawing.Point(7, 139);
+            this.chckbx_telefono.Name = "chckbx_telefono";
+            this.chckbx_telefono.Size = new System.Drawing.Size(117, 17);
+            this.chckbx_telefono.TabIndex = 10;
+            this.chckbx_telefono.Text = "Teléfono Contacto:";
+            this.chckbx_telefono.UseVisualStyleBackColor = true;
+            this.chckbx_telefono.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // txtbx_telefono
             // 
@@ -665,6 +665,7 @@
             this.btn_exportar.TabIndex = 14;
             this.btn_exportar.Text = "Exportar Listado";
             this.btn_exportar.UseVisualStyleBackColor = true;
+            this.btn_exportar.Click += new System.EventHandler(this.btn_exportar_Click);
             // 
             // Form1
             // 
@@ -706,7 +707,7 @@
         private System.Windows.Forms.TextBox txtbx_nombre_empresa;
         private System.Windows.Forms.TextBox txtbx_id_pro;
         private System.Windows.Forms.Label lbl_nombre_contacto;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chckbx_telefono;
         private System.Windows.Forms.TextBox txtbx_telefono;
         private System.Windows.Forms.TextBox txtbx_correo;
         private System.Windows.Forms.Label lbl_correo;
