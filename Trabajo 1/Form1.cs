@@ -52,18 +52,10 @@ namespace Trabajo_1
                 }
                 else
                 {
-                    if (checkBox1.Checked)
-                    {
-                        Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text, txtbx_telefono.Text,
-                                                                   txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
-                        proveedores.Add(nuevoProveedor);
-                    }
-                    else
-                    {
-                        Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text,
-                                                                   txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
-                        proveedores.Add(nuevoProveedor);
-                    }
+                    Proveedor nuevoProveedor = new Proveedor(int.Parse(txtbx_id_pro.Text), txtbx_nombre_empresa.Text, txtbx_nombre_contacto.Text, txtbx_correo.Text,
+                                                               txtbx_producto.Text, int.Parse(txtbx_peso.Text), int.Parse(txtbx_precio.Text), int.Parse(txtbx_presupuesto.Text));
+                    proveedores.Add(nuevoProveedor);
+
 
                     dgv_lista.DataSource = null;
                     dgv_lista.DataSource = proveedores;
@@ -183,30 +175,25 @@ namespace Trabajo_1
                 txtbx_buscar_peso.Text = pe.Peso.ToString();
                 txtbx_buscar_precio.Text = pe.Precio.ToString();
                 txtbx_buscar_presupuesto.Text = pe.Presupuesto.ToString();
-
-                MessageBox.Show("Proveedor modificado con exito.");
-
-                txtbx_buscar_id.Enabled = false;
-                txtbx_buscar_nombre.Enabled = false;
-                txtbx_buscar_contacto.Enabled = false;
-                txtbx_buscar_nombre.Enabled = false;
-                txtbx_buscar_correo.Enabled = false;
-                txtbx_buscar_telefono.Enabled = false;
-                txtbx_buscar_producto.Enabled = false;
-                txtbx_buscar_peso.Enabled = false;
-                txtbx_buscar_precio.Enabled = false;
-
-
             }
             else
             {
                 MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
             }
+            txtbx_buscar.Clear();
         }
 
         private void btn_modificar_Click(object sender, EventArgs e)
         {
-
+            txtbx_buscar_id.Enabled = false;
+            txtbx_buscar_nombre.Enabled = false;
+            txtbx_buscar_contacto.Enabled = false;
+            txtbx_buscar_nombre.Enabled = false;
+            txtbx_buscar_correo.Enabled = false;
+            txtbx_buscar_telefono.Enabled = false;
+            txtbx_buscar_producto.Enabled = false;
+            txtbx_buscar_peso.Enabled = false;
+            txtbx_buscar_precio.Enabled = false;
         }
 
         private void txtbx_nombre_empresa_KeyPress(object sender, KeyPressEventArgs e) // solo letras
