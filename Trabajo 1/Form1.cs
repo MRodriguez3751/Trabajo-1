@@ -78,6 +78,7 @@ namespace Trabajo_1
 
                     }
 
+
                     dgv_lista.DataSource = null;
                     dgv_lista.DataSource = proveedores;
 
@@ -179,7 +180,7 @@ namespace Trabajo_1
                     proveedor.Producto = txtbx_buscar_producto.Text;
                     proveedor.Peso = int.Parse(txtbx_buscar_peso.Text);
                     proveedor.Precio = int.Parse(txtbx_buscar_precio.Text);
-                    proveedor.Presupuesto = int.Parse(txtbx_presupuesto.Text);
+                    proveedor.Presupuesto = int.Parse(txtbx_buscar_presupuesto.Text);
                 }
 
                 MessageBox.Show("Proveedor modificado con éxito.");
@@ -233,7 +234,11 @@ namespace Trabajo_1
             {
                 MessageBox.Show("No hay proveedores que exportar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+
         }
+
+
         // Fin botones
 
         // Validaciones y otros
@@ -338,6 +343,7 @@ namespace Trabajo_1
                 NombreEmpresa = nombreEmpresa;
                 NombreContacto = nombreContacto;
                 Correo = correo;
+                Telefono = "";
                 Producto = producto;
                 Peso = peso;
                 Precio = precio;
@@ -378,7 +384,50 @@ namespace Trabajo_1
             {
                 return totalMensual = Precio * Peso;
             }
+
         }
-        // Fin clase
+        private void btn_eliminar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtbx_buscar_id.Text))
+            {
+                MessageBox.Show("Complete el campo del ID del proveedor para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                int idProveedor = int.Parse(txtbx_buscar_id.Text);
+                Proveedor proveedorAEliminar = proveedores.FirstOrDefault(p => p.Id == idProveedor);
+
+                if (proveedorAEliminar != null)
+                {
+
+                    proveedores.Remove(proveedorAEliminar);
+
+                    dgv_lista.DataSource = null;
+                    dgv_lista.DataSource = proveedores;
+
+                    MessageBox.Show("Proveedor eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    txtbx_buscar_id.Clear();
+                    txtbx_buscar_nombre.Clear();
+                    txtbx_buscar_contacto.Clear();
+                    txtbx_buscar_correo.Clear();
+                    txtbx_buscar_telefono.Clear();
+                    txtbx_buscar_producto.Clear();
+                    txtbx_buscar_peso.Clear();
+                    txtbx_buscar_precio.Clear();
+                    txtbx_buscar_presupuesto.Clear();
+                    txtbx_buscar_total.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
+                }
+
+            }
+
+        }
     }
 }
+
+
+
