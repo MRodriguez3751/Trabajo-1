@@ -98,6 +98,11 @@ namespace Trabajo_1
         }
         private void btn_buscar_Click(object sender, EventArgs e)
         {
+            if (txtbx_buscar.Text.Length < 4)
+            {
+                MessageBox.Show("El ID del proveedor debe contener al menos 4 digitos", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             bool proveedorExistente = proveedores.Any(p => p.Id.Equals(int.Parse(txtbx_buscar.Text)));
             if (proveedorExistente)
             {
@@ -105,7 +110,6 @@ namespace Trabajo_1
                 txtbx_buscar_contacto.Enabled = true;
                 txtbx_buscar_nombre.Enabled = true;
                 txtbx_buscar_correo.Enabled = true;
-                txtbx_buscar_telefono.Enabled = true;
                 txtbx_buscar_producto.Enabled = true;
                 txtbx_buscar_peso.Enabled = true;
                 txtbx_buscar_precio.Enabled = true;
@@ -117,7 +121,11 @@ namespace Trabajo_1
                 txtbx_buscar_contacto.Text = pe.NombreContacto;
                 txtbx_buscar_nombre.Text = pe.NombreEmpresa;
                 txtbx_buscar_correo.Text = pe.Correo;
-                txtbx_buscar_telefono.Text = pe.Telefono;
+                if (!string.IsNullOrWhiteSpace(pe.Telefono))
+                {
+                    chckbx_buscar_telefono.Checked = true;
+                    txtbx_buscar_telefono.Text = pe.Telefono;
+                }
                 txtbx_buscar_producto.Text = pe.Producto;
                 txtbx_buscar_peso.Text = pe.Peso.ToString();
                 txtbx_buscar_precio.Text = pe.Precio.ToString();
@@ -200,6 +208,46 @@ namespace Trabajo_1
                 txtbx_buscar_presupuesto.Enabled = false;
             }
         }
+        private void btn_eliminar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtbx_buscar_id.Text))
+            {
+                MessageBox.Show("Complete el campo del ID del proveedor para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                int idProveedor = int.Parse(txtbx_buscar_id.Text);
+                Proveedor proveedorAEliminar = proveedores.FirstOrDefault(p => p.Id == idProveedor);
+
+                if (proveedorAEliminar != null)
+                {
+
+                    proveedores.Remove(proveedorAEliminar);
+
+                    dgv_lista.DataSource = null;
+                    dgv_lista.DataSource = proveedores;
+
+                    MessageBox.Show("Proveedor eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    txtbx_buscar_id.Clear();
+                    txtbx_buscar_nombre.Clear();
+                    txtbx_buscar_contacto.Clear();
+                    txtbx_buscar_correo.Clear();
+                    txtbx_buscar_telefono.Clear();
+                    txtbx_buscar_producto.Clear();
+                    txtbx_buscar_peso.Clear();
+                    txtbx_buscar_precio.Clear();
+                    txtbx_buscar_presupuesto.Clear();
+                    txtbx_buscar_total.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
+                }
+
+            }
+
+        }
         private void btn_limpiar_Click(object sender, EventArgs e)
         {
             txtbx_id_pro.Clear();
@@ -238,10 +286,7 @@ namespace Trabajo_1
 
         }
 
-
-        // Fin botones
-
-        // Validaciones y otros
+        // Validaciones
         private void chckbx_telefono_CheckedChanged(object sender, EventArgs e)
         {
             if (chckbx_telefono.Checked)
@@ -257,7 +302,7 @@ namespace Trabajo_1
         }
         private void chckbx_buscar_telefono_CheckedChanged(object sender, EventArgs e)
         {
-            if (chckbx_telefono.Checked)
+            if (chckbx_buscar_telefono.Checked && !string.IsNullOrWhiteSpace(txtbx_buscar_id.Text))
             {
                 txtbx_buscar_telefono.Clear();
                 txtbx_buscar_telefono.Enabled = true;
@@ -268,7 +313,7 @@ namespace Trabajo_1
                 txtbx_buscar_telefono.Enabled = false;
             }
         }
-        private void txtbx_id_pro_KeyPress(object sender, KeyPressEventArgs e)
+        private void Validaciones_txtbx_id_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -277,9 +322,12 @@ namespace Trabajo_1
             if (txtbx_id_pro.Text.Length >= 4 && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
+            } else if (txtbx_buscar.Text.Length >= 4 && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
-        private void txtbx_nombre_empresa_KeyPress(object sender, KeyPressEventArgs e)
+        private void Input_De_Texto_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!(char.IsLetter(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
@@ -287,28 +335,31 @@ namespace Trabajo_1
                 return;
             }
         }
-        private void txtbx_telefono_KeyPress(object sender, KeyPressEventArgs e)
+        private void Input_Numerico_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void calcular_total_mensual(object sender, EventArgs e)
+        private void Calcular_total_mensual(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtbx_peso.Text) && !string.IsNullOrWhiteSpace(txtbx_precio.Text))
             {
                 txtbx_prec_total_men.Text = $"$ {int.Parse(txtbx_precio.Text) * int.Parse(txtbx_peso.Text)}";
             }
+            else
+            {
+                txtbx_prec_total_men.Clear();
+            }
         }
-        private void modificar_total_mensual(object sender, EventArgs e)
+        private void Modificar_total_mensual(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtbx_buscar_peso.Text) && !string.IsNullOrWhiteSpace(txtbx_buscar_precio.Text))
             {
                 txtbx_buscar_total.Text = $"$ {int.Parse(txtbx_buscar_precio.Text) * int.Parse(txtbx_buscar_peso.Text)}";
             }
         }
-        // Fin validaciones y otros
 
         // Clase
         public class Proveedor
@@ -383,46 +434,6 @@ namespace Trabajo_1
             public int calcularTotalMensual()
             {
                 return totalMensual = Precio * Peso;
-            }
-
-        }
-        private void btn_eliminar_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtbx_buscar_id.Text))
-            {
-                MessageBox.Show("Complete el campo del ID del proveedor para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                int idProveedor = int.Parse(txtbx_buscar_id.Text);
-                Proveedor proveedorAEliminar = proveedores.FirstOrDefault(p => p.Id == idProveedor);
-
-                if (proveedorAEliminar != null)
-                {
-
-                    proveedores.Remove(proveedorAEliminar);
-
-                    dgv_lista.DataSource = null;
-                    dgv_lista.DataSource = proveedores;
-
-                    MessageBox.Show("Proveedor eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    txtbx_buscar_id.Clear();
-                    txtbx_buscar_nombre.Clear();
-                    txtbx_buscar_contacto.Clear();
-                    txtbx_buscar_correo.Clear();
-                    txtbx_buscar_telefono.Clear();
-                    txtbx_buscar_producto.Clear();
-                    txtbx_buscar_peso.Clear();
-                    txtbx_buscar_precio.Clear();
-                    txtbx_buscar_presupuesto.Clear();
-                    txtbx_buscar_total.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("Proveedor no encontrado. Verifique el ID e intente nuevamente.");
-                }
-
             }
 
         }
